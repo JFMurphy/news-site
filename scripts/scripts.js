@@ -11,7 +11,7 @@ function parse_rss(rss_feed, sectionID, sectionHeader) {
         .append('<h1>'+ sectionHeader));
 
     $(rss_feed).find('item').each(function() {
-        imgURL = $(this).find('thumbnail').attr('url').replace('http://', 'https://');
+        imgURL = $(this).find('media\\:thumbnail').attr('url');
         itemTitle = $(this).find('title').text();
         itemText = $(this).find('description').text();
         itemLink = $(this).find('link').text();         // Link to the full article
@@ -32,12 +32,12 @@ function buildStory(sectionID, imgURL, itemTitle, itemText, itemLink) {
              'data-title="'+ itemTitle + '" data-link="' + itemLink + '" data-imgurl="'+ imgURL + '">Read More'));
 }
 
-/* On successful load of the rss feed, the parse_rss function will be 
+/* On successful load of the rss feed, the parse_rss function will be
     run and will be passed the variable for the section ID and section title.*/
 function loadNews(sectionID, sectionHeader) {
     $.ajax({
         type: "GET",
-        url: "Scripts/"+ sectionID + "_rss.php",
+        url: "scripts/"+ sectionID + "_rss.php",
         dataType: "xml",
         cache: false,
         var1: sectionID,
@@ -51,7 +51,7 @@ function loadNews(sectionID, sectionHeader) {
 function getArticleContent(link) {
     $.ajax({
         type: "GET",
-        url: "Scripts/content.php?file="+link,
+        url: "scripts/content.php?file="+link,
         datatype: "html",
         cache: false,
         success: parseArticle
@@ -65,7 +65,7 @@ function parseArticle(html_feed) {
     $('.modal-body').empty();
     $('.modal-body').append($(html_feed).find('.story-body__introduction').text());
     $(html_feed).find('p:not([class])').each(function() {
-        console.log($(this).text());
+        // console.log($(this).text());
         $('.modal-body').append('<p>' + $(this).text());
     });
 }
@@ -89,7 +89,7 @@ function search(searchTerm) {
         itemLink = item.find('link').text();
 
         searchData = itemTitle + " " + itemText;
-        console.log(searchData);
+        // console.log(searchData);
 
         numFoundItems += searchData.search(regexQuery);
         if (searchData.search(regexQuery) >= 0) {
@@ -109,20 +109,20 @@ $(document).ready(function() {
     */
     $('a:not([class])').click(function() {
         var sectionID = $(this).attr("href").replace('#', '');  // Used as an id for different news sections
-        var sectionHeader = $(this).text();                     // 
-        console.log("ID: " + sectionID, " Header: " + sectionHeader);
+        var sectionHeader = $(this).text();                     //
+        // console.log("ID: " + sectionID, " Header: " + sectionHeader);
         $('#main-container').empty();
         loadNews(sectionID, sectionHeader);
     });
 
     /*
     * Functionality for when a modal is activated.
-    * Functionality includes: 
+    * Functionality includes:
     * Changing the title of the modal.
     * Adding an image to the top of the modal.
     * Adding a link to the source of the news content.
     * Adding the content of an article.
-    */ 
+    */
     $('#articleModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var newsTitle = button.data('title');
@@ -130,9 +130,9 @@ $(document).ready(function() {
         var newsLinkShort = newsLink.substr(26);    // Example: uk-politics-38258976
         var imgURL = button.data('imgurl');
 
-        console.log(newsTitle);
-        console.log(newsLink);
-        console.log(imgURL);
+        // console.log(newsTitle);
+        // console.log(newsLink);
+        // console.log(imgURL);
 
         var modal = $(this);
         modal.find('.modal-title').text(newsTitle);
