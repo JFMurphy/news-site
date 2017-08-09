@@ -1,4 +1,4 @@
-# web-assignment
+# news-site
 
 News website I created for a University assignment that pulls new articles from the BBC news site.
 
