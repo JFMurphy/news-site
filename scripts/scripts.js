@@ -83,7 +83,7 @@ function search(searchTerm) {
 
     $(g_rss_feed).find('item').each(function() {
         item = $(this);
-        imgURL = item.find('thumbnail').attr('url').replace('http://', 'https://');
+        imgURL = $(this).find('media\\:thumbnail').attr('url');
         itemTitle = item.find('title').text();
         itemText = item.find('description').text();
         itemLink = item.find('link').text();
