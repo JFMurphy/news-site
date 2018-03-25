@@ -91,7 +91,7 @@ function search(searchTerm) {
         searchData = itemTitle + " " + itemText;
         // console.log(searchData);
 
-        numFoundItems += searchData.search(regexQuery);
+        //numFoundItems += searchData.search(regexQuery);
         if (searchData.search(regexQuery) >= 0) {
             buildStory(sectionID, imgURL, itemTitle, itemText, itemLink);
         }
